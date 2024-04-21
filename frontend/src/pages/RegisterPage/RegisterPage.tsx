@@ -8,6 +8,7 @@ import LoginMethod from '../../molecules/LoginMethod/LoginMethod';
 import { useNavigate } from 'react-router';
 import { ToastContext } from '../../contexts/ToastData';
 import Toast from '../../molecules/Toast/Toast';
+import Cookies from 'js-cookie';
 
 const RegisterPage = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const RegisterPage = (): React.ReactElement => {
 
       const token: string = responseData.data.token;
 
-      localStorage.setItem('token', `bearer ${token}`);
+      Cookies.set('token', `bearer ${responseData.data.token}`, { expires: new Date(new Date().getTime() + 1000 * 60)});
 
       navigate('/main/dashboard');
     } catch (error) {
